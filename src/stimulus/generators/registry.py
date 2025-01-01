@@ -54,6 +54,7 @@ def _register_code_generators() -> None:
         RRCodeGenerator,
     )
     from .shell import ShellCodeGenerator
+    from .ruby import RubyFFICodeGenerator, RubyRubyCodeGenerator
 
     updates = {
         "ci:validate": FunctionSpecificationValidator,
@@ -66,6 +67,8 @@ def _register_code_generators() -> None:
         "r:init": RInitCodeGenerator,
         "r:r": RRCodeGenerator,
         "shell": ShellCodeGenerator,
+        "ruby:ffi": RubyFFICodeGenerator,
+        "ruby:ruby": RubyRubyCodeGenerator,
         # legacy names
         "RC": RCCodeGenerator,
         "RInit": RInitCodeGenerator,
