@@ -196,11 +196,14 @@ class PythonCTypesCodeGenerator(SingleBlockCodeGenerator):
             py_arg_type = _get_ctypes_arg_type_from_c_arg_type(c_arg_type)
             py_arg_types.append(py_arg_type)
 
-            # Remember the type if it is an enum type or a bitfield type
-            if param_type.is_enum:
-                self.enum_types.add(py_arg_type)
-            if param_type.is_bitfield:
-                self.bitfield_types.add(py_arg_type)
+            # Remember the type if it is an enum type or a bitfield type.
+            # Do this only for input parameters because OUT and INOUT get
+            # a POINTER(...) wrapper
+            if parameter.mode == ParamMode.IN:
+                if param_type.is_enum:
+                    self.enum_types.add(py_arg_type)
+                if param_type.is_bitfield:
+                    self.bitfield_types.add(py_arg_type)
 
         py_arg_types_joined = ", ".join(py_arg_types)
 
